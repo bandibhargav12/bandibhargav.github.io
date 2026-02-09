@@ -1,106 +1,2432 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhargav's Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    <title>Bhargav Chowdary - Software Developer Portfolio</title>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <style>
-        body {
-            background-color: #121212;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            transition: all 0.3s ease-in-out;
-        }
-        header {
-            background-color: black;
-            padding: 20px;
-        }
-        nav ul {
-            list-style: none;
+        * {
+            margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
+
+        :root {
+            /* Blue and White theme */
+            --primary: #2563EB;
+            --primary-dark: #1D4ED8;
+            --primary-light: #3B82F6;
+            --accent: #1E40AF;
+            --secondary: #60A5FA;
+
+            --background: #FFFFFF;
+            --foreground: #1E293B;
+            --card: #FFFFFF;
+            --muted-foreground: #64748B;
+            --border: #E2E8F0;
+            --light-blue: #EFF6FF;
+
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #2563EB, #3B82F6);
+            --gradient-hover: linear-gradient(135deg, #1D4ED8, #2563EB);
+            --gradient-subtle: linear-gradient(180deg, #FFFFFF, #F8FAFC);
+            --gradient-blue: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+
+            /* Shadows */
+            --shadow-elegant: 0 10px 30px -10px rgba(37, 99, 235, 0.3);
+            --shadow-glow: 0 0 40px rgba(37, 99, 235, 0.4);
+            --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+            /* Animations */
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-        nav ul li a {
-            color: red;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        nav ul li a:hover {
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Utility Classes */
+        .text-gradient {
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            transition: var(--transition-smooth);
             color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
         }
-        section {
-            padding: 50px;
+
+        .btn-primary:hover {
+            background: var(--gradient-hover);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .card-elegant {
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .card-elegant:hover {
+            box-shadow: var(--shadow-elegant);
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--primary);
+        }
+
+        .scroll-reveal {
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1s ease-in-out forwards;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        @keyframes fadeInUp {
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-elegant);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logo:hover {
+            transform: scale(1.1) rotate(-2deg);
+            color: var(--primary-dark);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--foreground);
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: var(--gradient-primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+            background: var(--light-blue);
+        }
+
+        .nav-links a:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        /* Hero Section with Minimalistic Background */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Minimalistic Background Elements */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        /* Floating Dots */
+        .floating-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatDot 8s ease-in-out infinite;
+        }
+
+        /* Subtle Lines */
+        .subtle-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.2), transparent);
+            animation: moveLine 12s linear infinite;
+        }
+
+        .line-horizontal {
+            height: 1px;
+            width: 100%;
+            left: -100%;
+        }
+
+        .line-vertical {
+            width: 1px;
+            height: 100%;
+            top: -100%;
+        }
+
+        /* Geometric Shapes - Minimalistic */
+        .minimal-shape {
+            position: absolute;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            animation: rotate 20s linear infinite;
+        }
+
+        .shape-circle {
+            border-radius: 50%;
+        }
+
+        .shape-square {
+            border-radius: 4px;
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: slideInUp 1s ease-out;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            margin-bottom: 2rem;
+            color: var(--muted-foreground);
+            line-height: 1.6;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-buttons {
+            animation: slideInUp 1s ease-out 0.6s both;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            animation: slideInUp 1s ease-out 0.9s both;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 1.5rem;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: var(--shadow-glow);
+            background: white;
+        }
+
+        .social-link:active {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        /* About Me Section */
+        #about {
+            padding: 5rem 0;
+            background: var(--gradient-subtle);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .profile-section {
+            text-align: center;
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563EB, #3B82F6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #2563EB, #3B82F6, #60A5FA, #2563EB);
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+
+        .profile-name {
+            color: white;
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--foreground);
+        }
+
+        .about-description {
+            font-size: 1.1rem;
+            color: var(--muted-foreground);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .expertise-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+        }
+
+        .expertise-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-elegant);
+        }
+
+        .expertise-icon {
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+        }
+
+        .expertise-text {
+            font-weight: 600;
+            color: var(--foreground);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .bg-subtle {
+            background: var(--gradient-subtle);
+        }
+
+        /* Tech Stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tech-item {
+            text-align: center;
+            padding: 2rem 1rem;
+            border-radius: 1rem;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            border: 2px solid transparent;
+            background: white;
+        }
+
+        .tech-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .tech-item:active {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .tech-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1rem;
+            transition: var(--transition-smooth);
+            background: transparent;
+        }
+
+        .tech-icon svg {
+            width: 64px;
+            height: 64px;
+            transition: var(--transition-smooth);
+        }
+
+        .tech-item:hover .tech-icon {
+            transform: rotateY(360deg) scale(1.1);
+        }
+
+        .tech-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--foreground);
+            transition: var(--transition-smooth);
+        }
+
+        .tech-item:hover .tech-name {
+            color: var(--primary);
+        }
+
+        /* Experience Section with Blue Theme */
+        #experience {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #experience::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="blueGrid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%232563EB" stroke-width="0.3" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23blueGrid)"/></svg>');
+            animation: float 15s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        .experience-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-primary);
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .experience-item {
+            position: relative;
+            margin-bottom: 4rem;
+            width: 45%;
+            transition: var(--transition-smooth);
+        }
+
+        .experience-item:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .experience-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .experience-item:nth-child(even) {
+            left: 55%;
+            text-align: left;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 6px solid white;
+            box-shadow: 0 0 0 4px var(--primary), 0 0 20px rgba(37, 99, 235, 0.5);
+            transition: var(--transition-smooth);
+            animation: pulse-blue 2s ease-in-out infinite;
+        }
+
+        .experience-item:hover::before {
+            transform: scale(1.5);
+            box-shadow: 0 0 0 6px var(--primary), 0 0 30px rgba(37, 99, 235, 0.8);
+            animation: pulse-blue-fast 0.5s ease-in-out infinite;
+        }
+
+        .experience-item:nth-child(odd)::before {
+            right: -62px;
+        }
+
+        .experience-item:nth-child(even)::before {
+            left: -62px;
+        }
+
+        .experience-card {
+            padding: 2.5rem;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .experience-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-glow);
+            border-color: var(--primary);
+        }
+
+        .experience-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .experience-card:hover .experience-image {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .experience-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .experience-card:hover .experience-title {
+            color: var(--primary-dark);
+            transform: translateX(5px);
+        }
+
+        .experience-company {
+            font-weight: 600;
+            color: var(--foreground);
+            margin-bottom: 0.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .experience-card:hover .experience-company {
+            color: var(--primary);
+        }
+
+        .experience-date {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .experience-desc {
+            color: var(--muted-foreground);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Certifications */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cert-card {
+            border-left: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            border-radius: 1rem;
+        }
+
+        .cert-card:hover {
+            transform: translateX(10px) scale(1.02);
+            box-shadow: -5px 10px 30px rgba(37, 99, 235, 0.2);
+        }
+
+        .cert-image {
+            width: 50%;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 1rem 1rem 0 0;
+            transition: var(--transition-smooth);
+            background: #f8fafc;
+            padding: 1rem;
+        }
+
+        .cert-card:hover .cert-image {
+            transform: scale(1.05);
+        }
+
+        .cert-content {
+            padding: 1.25rem;
+        }
+
+        .cert-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cert-logo {
+
+            border-radius: 0.75rem;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-right: 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .cert-card:hover .cert-logo {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .cert-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+            font-size: 1.1rem;
+        }
+
+        .cert-org {
+            color: var(--muted-foreground);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .cert-button {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            width: 100%;
+        }
+
+        .cert-button:hover {
+            background: var(--gradient-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+            transition: var(--transition-smooth);
+            background: white;
+            border: 1px solid var(--border);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            z-index: 2;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+            transition: color 0.3s ease;
+        }
+
+        .project-card:hover .project-title {
+            color: var(--primary);
+        }
+
+        .project-desc {
+            color: var(--muted-foreground);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            font-size: 0.85rem;
+            border-radius: 1rem;
+            font-weight: 500;
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 3;
+        }
+
+        /* Contact */
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--foreground);
+        }
+
+        .contact-info p {
+            color: var(--muted-foreground);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            transition: var(--transition-smooth);
+            padding: 1rem;
+            border-radius: 0.75rem;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            background: var(--light-blue);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .contact-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .contact-form {
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-elegant);
+            background: white;
+            border: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+            background: #F8FAFC;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            transform: scale(1.02);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+        }
+
+        .company-logos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .company-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: #F8FAFC;
+            border-radius: 0.75rem;
+            transition: var(--transition-smooth);
+        }
+
+        .company-logo:hover {
+            background: var(--light-blue);
+            transform: scale(1.05);
+        }
+
+        .company-logo img {
+            height: 40px;
+            object-fit: contain;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .company-logo:hover img {
+            opacity: 1;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--foreground);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="currentColor"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+            opacity: 0.05;
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 1;
+            padding: 4rem 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-brand .logo {
+            color: var(--secondary);
+            margin-right: 1rem;
+        }
+
+        .footer-divider {
+            width: 1px;
+            height: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 0 1rem;
+        }
+
+        .footer-brand-text h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-brand-text p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-desc {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            max-width: 400px;
+        }
+
+        .footer-social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social-link {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-social-link:hover {
+            background: var(--primary);
+            transform: scale(1.2) rotate(10deg);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .back-to-top {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .back-to-top:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .back-to-top-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .back-to-top:hover .back-to-top-icon {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-10px) rotate(1deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(0deg);
+            }
+
+            75% {
+                transform: translateY(-10px) rotate(-1deg);
+            }
+        }
+
+        @keyframes floatDot {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translateY(-20px);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes slideInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(50px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        footer {
-            background-color: black;
-            padding: 10px;
-            margin-top: 20px;
+
+        @keyframes moveLine {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse-blue {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 4px var(--primary), 0 0 20px rgba(37, 99, 235, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 0 8px var(--primary), 0 0 30px rgba(37, 99, 235, 0.8);
+            }
+        }
+
+        @keyframes pulse-blue-fast {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 6px var(--primary), 0 0 30px rgba(37, 99, 235, 0.8);
+            }
+
+            50% {
+                box-shadow: 0 0 0 12px var(--primary), 0 0 40px rgba(37, 99, 235, 1);
+            }
+        }
+
+        .click-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .click-effect::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .click-effect:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: var(--shadow-elegant);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links.active {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-grid,
+            .cert-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-form {
+                margin: 0 1rem;
+                padding: 1.5rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .experience-timeline::before {
+                left: 20px;
+            }
+
+            .experience-item {
+                width: calc(100% - 60px);
+                left: 60px !important;
+                text-align: left !important;
+            }
+
+            .experience-item::before {
+                left: -50px !important;
+            }
+
+            .social-links {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
+
 <body>
-    <header>
-        <h1>Bandi bhargav chowdary</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo" onclick="scrollToSection('home')">Bhargav</div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a onclick="scrollToSection('home')">Home</a></li>
+                    <li><a onclick="scrollToSection('about')">About</a></li>
+                    <li><a onclick="scrollToSection('skills')">Skills</a></li>
+                    <li><a onclick="scrollToSection('experience')">Experience</a></li>
+                    <li><a onclick="scrollToSection('certifications')">Certifications</a></li>
+                    <li><a onclick="scrollToSection('hackathons')">Hackathons</a></li>
+                    <li><a onclick="scrollToSection('projects')">Projects</a></li>
+                    <li><a onclick="scrollToSection('contact')">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <!-- Minimalistic Floating Dots -->
+            <div class="floating-dot" style="top: 15%; left: 10%; animation-delay: 0s;"></div>
+            <div class="floating-dot" style="top: 25%; right: 15%; animation-delay: 2s;"></div>
+            <div class="floating-dot" style="top: 45%; left: 5%; animation-delay: 4s;"></div>
+            <div class="floating-dot" style="top: 65%; right: 10%; animation-delay: 1s;"></div>
+            <div class="floating-dot" style="top: 75%; left: 20%; animation-delay: 3s;"></div>
+            <div class="floating-dot" style="top: 35%; right: 25%; animation-delay: 5s;"></div>
+            <div class="floating-dot" style="top: 55%; left: 80%; animation-delay: 2.5s;"></div>
+            <div class="floating-dot" style="top: 85%; right: 30%; animation-delay: 4.5s;"></div>
+
+            <!-- Subtle Lines -->
+            <div class="subtle-line line-horizontal" style="top: 20%;"></div>
+            <div class="subtle-line line-horizontal" style="top: 60%; animation-delay: -4s;"></div>
+            <div class="subtle-line line-horizontal" style="top: 80%; animation-delay: -8s;"></div>
+
+            <div class="subtle-line line-vertical" style="left: 15%;"></div>
+            <div class="subtle-line line-vertical" style="left: 85%; animation-delay: -6s;"></div>
+
+            <!-- Minimal Geometric Shapes -->
+            <div class="minimal-shape shape-circle" style="width: 60px; height: 60px; top: 20%; left: 70%;"></div>
+            <div class="minimal-shape shape-square" style="width: 40px; height: 40px; top: 60%; left: 15%;"></div>
+            <div class="minimal-shape shape-circle" style="width: 30px; height: 30px; top: 80%; right: 20%;"></div>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="text-gradient">Bhargav Chowdary</h1>
+            <p>Passionate Software Developer | AI Enthusiast | Problem Solver<br>
+                Building innovative solutions with cutting-edge technology</p>
+            <div class="hero-buttons">
+                <button class="btn-primary click-effect" onclick="scrollToSection('projects')">
+                    <span style="position: relative; z-index: 10;">View My Work</span>
+                </button>
+                <button class="btn-primary click-effect" onclick="scrollToSection('contact')"
+                    style="background: linear-gradient(135deg, #10B981, #059669);">
+                    <span style="position: relative; z-index: 10;">Get In Touch</span>
+                </button>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/Bandibhargav" class="social-link click-effect" target="_blank"
+                    title="GitHub">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                </a>
+                <a href="https://linkedin.com/in/bhargav-chowdary-830875295" class="social-link click-effect"
+                    target="_blank" title="LinkedIn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                </a>
+                <a href="mailto:bhargavchowdary1221@gmail.com" class="social-link click-effect" title="Email">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.91L12 10.09l9.455-6.269h.909c.904 0 1.636.732 1.636 1.636z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
     <section id="about">
-        <h2>About Me</h2>
-        <p>I am a student passionate about programming and web development. I specialize in C, Java, Python, HTML, CSS, and JavaScript.</p>
+        <div class="container">
+            <div class="about-container">
+                <h2 class="section-title text-gradient scroll-reveal">About Me</h2>
+                <div class="about-grid">
+                    <div class="profile-section scroll-reveal">
+                        <div class="profile-image">
+                            <div class="profile-name">Bhargav<br>Chowdary</div>
+                        </div>
+                    </div>
+
+                    <div class="about-content scroll-reveal">
+                        <h2>Passionate Developer & Tech Innovator</h2>
+                        <p class="about-description">
+                            I’m a passionate student and aspiring software developer with a keen interest in generative
+                            AI and problem solving. Skilled in full-stack development and always eager to learn, I enjoy
+                            tackling complex challenges and transforming ideas into impactful applications. My journey
+                            in technology is driven by curiosity, continuous learning, and the desire to create
+                            solutions that positively influence people’s lives.
+                        </p>
+
+                        <div class="expertise-grid">
+                            <div class="expertise-item scroll-reveal">
+                                <div class="expertise-icon">🎯</div>
+                                <div class="expertise-text">Strategic Thinker</div>
+                            </div>
+                            <div class="expertise-item scroll-reveal">
+                                <div class="expertise-icon">⚡</div>
+                                <div class="expertise-text">Quick Learner</div>
+                            </div>
+                            <div class="expertise-item scroll-reveal">
+                                <div class="expertise-icon">🔧</div>
+                                <div class="expertise-text">Technical Expert</div>
+                            </div>
+                            <div class="expertise-item scroll-reveal">
+                                <div class="expertise-icon">🌟</div>
+                                <div class="expertise-text">Creative Problem Solver</div>
+                            </div>
+                            <div class="expertise-item scroll-reveal">
+                                <div class="expertise-icon">🤖</div>
+                                <div class="expertise-text"> Generative AI expert</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-    
+
+    <!-- Tech Stack Section -->
     <section id="skills">
-        <h2>Skills</h2>
-        <ul>
-            <li>C</li>
-            <li>Java</li>
-            <li>Python</li>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
-        </ul>
+        <div class="container">
+            <h2 class="section-title text-gradient scroll-reveal">Technical Skills</h2>
+            <div class="tech-grid">
+                <div class="tech-item card-elegant scroll-reveal click-effect">
+                    <div class="tech-icon">
+                        <iconify-icon icon="logos:javascript" style="font-size: 64px;"></iconify-icon>
+                    </div>
+                    <div class="tech-name">JavaScript</div>
+                </div>
+                <div class="tech-item card-elegant scroll-reveal click-effect">
+                    <div class="tech-icon">
+                        <iconify-icon icon="logos:python" style="font-size: 64px;"></iconify-icon>
+                    </div>
+                    <div class="tech-name">Python</div>
+                </div>
+                <div class="tech-item card-elegant scroll-reveal click-effect">
+                    <div class="tech-icon">
+                        <iconify-icon icon="logos:java" style="font-size: 64px;"></iconify-icon>
+                    </div>
+                    <div class="tech-name">Java</div>
+                </div>
+                <div class="tech-item card-elegant scroll-reveal click-effect">
+                    <div class="tech-icon">
+                        <iconify-icon icon="logos:c" style="font-size: 64px;"></iconify-icon>
+                    </div>
+                    <div class="tech-name">C Lang</div>
+                </div>
+                <div class="tech-item card-elegant scroll-reveal click-effect">
+                    <div class="tech-icon">
+                        <iconify-icon icon="logos:html-5" style="font-size: 64px;"></iconify-icon>
+                    </div>
+                    <div class="tech-name">HTML5</div>
+                </div>
+                <div class="tech-item card-elegant scroll-reveal click-effect">
+                    <div class="tech-icon">
+                        <iconify-icon icon="logos:css-3" style="font-size: 64px;"></iconify-icon>
+                    </div>
+                    <div class="tech-name">CSS3</div>
+                </div>
+            </div>
+
+            <h2 class="section-title text-gradient scroll-reveal" style="margin-top: 4rem;">Autonomous AI & Global
+                Intelligence</h2>
+            <div class="tech-grid">
+                <div class="tech-item card-elegant scroll-reveal click-effect">
+                    <div class="tech-icon">
+                        <iconify-icon icon="hugeicons:ai-brain-05"
+                            style="font-size: 64px; color: #2563EB;"></iconify-icon>
+                    </div>
+                    <div class="tech-name">Gen AI</div>
+                </div>
+                <div class="tech-item card-elegant scroll-reveal click-effect">
+                    <div class="tech-icon">
+                        <iconify-icon icon="material-symbols:database-schema"
+                            style="font-size: 64px; color: #3B82F6;"></iconify-icon>
+                    </div>
+                    <div class="tech-name">RAG</div>
+                </div>
+                <div class="tech-item card-elegant scroll-reveal click-effect">
+                    <div class="tech-icon">
+                        <iconify-icon icon="simple-icons:pinecone"
+                            style="font-size: 64px; color: #000000;"></iconify-icon>
+                    </div>
+                    <div class="tech-name">Pinecone</div>
+                </div>
+                <div class="tech-item card-elegant scroll-reveal click-effect">
+                    <div class="tech-icon">
+                        <iconify-icon icon="eos-icons:api" style="font-size: 64px; color: #2563EB;"></iconify-icon>
+                    </div>
+                    <div class="tech-name">APIs</div>
+                </div>
+                <div class="tech-item card-elegant scroll-reveal click-effect">
+                    <div class="tech-icon">
+                        <iconify-icon icon="hugeicons:artificial-intelligence-03"
+                            style="font-size: 64px; color: #3B82F6;"></iconify-icon>
+                    </div>
+                    <div class="tech-name">ML</div>
+                </div>
+            </div>
+        </div>
     </section>
-    
-    <section id="projects">
-        <h2>Projects</h2>
-        <p>Coming soon...</p>
+
+    <!-- Experience & Achievements Section -->
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title text-gradient scroll-reveal">Experience & Achievements</h2>
+
+            <div class="experience-timeline">
+                <!-- 1. SASI College -->
+                <div class="experience-item scroll-reveal">
+                    <div class="experience-card click-effect">
+                        <div class="experience-title">🎓 Computer Science Student</div>
+                        <div class="experience-company">SASI College</div>
+                        <div class="experience-date">2023 - Present</div>
+                        <div class="experience-desc">
+                            Pursuing Bachelor's in Computer Science. Specialized in AI/ML architectures,
+                            full-stack systems, and advanced algorithm design. Consistently achieving
+                            top academic honors.
+                        </div>
+                        <div class="experience-skills">
+                            <span class="skill-tag">Software Engineering</span>
+                            <span class="skill-tag">AI/ML</span>
+                            <span class="skill-tag">Full-Stack</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Independent Researcher & Developer -->
+                <div class="experience-item scroll-reveal">
+                    <div class="experience-card click-effect">
+                        <div class="experience-title">🚀 Advanced AI Systems Research</div>
+                        <div class="experience-company">Open Source & Independent</div>
+                        <div class="experience-date">2024 - Present</div>
+                        <div class="experience-desc">
+                            Spearheading multiple independent projects in Generative AI, focusing on
+                            RAG optimization, Autonomous Agents, and high-scalability B2B SaaS architecture.
+                        </div>
+                        <div class="experience-skills">
+                            <span class="skill-tag">Generative AI</span>
+                            <span class="skill-tag">Vector DBs</span>
+                            <span class="skill-tag">System Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-    
+
+    <!-- Certifications Section -->
+    <section id="certifications">
+        <div class="container">
+            <h2 class="section-title text-gradient scroll-reveal">Certifications & Achievements</h2>
+            <div class="cert-grid">
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="data:image/png;base64,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" alt="CodeChef Logo" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo"></div>
+                            <div>
+                                <div class="cert-title">Google Analytics Certification</div>
+                                <div class="cert-org">Google</div>
+                            </div>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1zBY2ikZYaM6SxDM3EC8PDRgNQ6KXlzz_/view?usp=sharing" target="_blank"
+                            rel="noopener noreferrer">
+                            <button class="cert-button">View Certificate Details</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Oracle_logo.svg/2560px-Oracle_logo.svg.png"
+                        alt="Oracle Logo" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo"></div>
+                            <div>
+                                <div class="cert-title">AI Professional Certification</div>
+                                <div class="cert-org">Oracle</div>
+                            </div>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1qOSgapoW9XaLYHOVagGFTfolr1J8r_0C/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            <button class="cert-button">View Certificate Details</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/2560px-Amazon_Web_Services_Logo.svg.png"
+                        alt="AWS Logo" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo"></div>
+                            <div>
+                                <div class="cert-title">Introduction to Generative
+                                    AI - Art of the Possible</div>
+                                <div class="cert-org">AWS</div>
+                            </div>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1bQjbBXurydOh8n7MHh3iOxga9Z9iBZI3/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            <button class="cert-button">View Certificate Details</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Oracle_logo.svg/2560px-Oracle_logo.svg.png"
+                        alt="Oracle Logo" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo"></div>
+                            <div>
+                                <div class="cert-title">Gen AI Certification</div>
+                                <div class="cert-org">Oracle</div>
+                            </div>
+                        </div>
+                        <a href="https://drive.google.com/file/d/12xRmxOd-IDwKfiv0cbGuKJI-QaGE4Puk/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            <button class="cert-button">View Certificate Details</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/2560px-Amazon_Web_Services_Logo.svg.png"
+                        alt="AWS Logo" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo"></div>
+                            <div>
+                                <div class="cert-title">Chalk Talks: Generative AI
+                                    on AWS</div>
+                                <div class="cert-org">AWS</div>
+                            </div>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1Zg8k4wCNQnv-xjpqZP_ajk0TiWEAGg_Q/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            <button class="cert-button">View Certificate Details</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png"
+                        alt="MongoDB Logo" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo"></div>
+                            <div>
+                                <div class="cert-title">Introduction to MongoDB</div>
+                                <div class="cert-org">MongoDB Official</div>
+                            </div>
+                        </div>
+                        <a href="https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/278a58b3-e718-4a86-8794-174bbd945480-bhargav-bandi-aa39fe62-16b7-444f-8b3b-d83da299655b-certificate.pdf"
+                            target="_blank" rel="noopener noreferrer">
+                            <button class="cert-button">View Certificate Details</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/2560px-IBM_logo.svg.png"
+                        alt="IBM Logo" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo">
+                                <iconify-icon icon="logos:ibm" style="font-size: 24px;"></iconify-icon>
+                            </div>
+                            <div>
+                                <div class="cert-title">Machine Learning Specialist</div>
+                                <div class="cert-org">IBM</div>
+                            </div>
+                        </div>
+                        <button class="cert-button">View Certificate</button>
+                    </div>
+                </div>
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/800px-LinkedIn_logo_initials.png"
+                        alt="LinkedIn Logo" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo"></div>
+                            <div>
+                                <div class="cert-title">AI Certification</div>
+                                <div class="cert-org">LinkedIn Learning</div>
+                            </div>
+                        </div>
+                        <a href="https://www.linkedin.com/learning/certificates/3ddcb52d3ba29d19544527dd8ffecd30035c06da4c6218c827e02aea0d2e39f1?trk=share_certificate"
+                            target="_blank" rel="noopener noreferrer">
+                            <button class="cert-button">View Certificate Details</button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="data:image/png;base64,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"
+                        alt="HP Life Logo" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo"></div>
+                            <div>
+                                <div class="cert-title">Gen AI Certification</div>
+                                <div class="cert-org">HP Life</div>
+                            </div>
+                        </div>
+                        <a href="https://www.life-global.org/certificate/6878337d-0a52-43ea-852c-bbf04e01bf04"
+                            target="_blank" rel="noopener noreferrer">
+                            <button class="cert-button">View Certificate Details</button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjIuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPgo8c3ZnIHZpZXdCb3g9IjAgMCAxMTU1IDE2NCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjIiPjxwYXRoIGQ9Ik0xNTkuNzUgODEuNTRjMC00NC40OSAzNi42My04MC40NyA4Mi40My04MC40NyA0Ni4xMiAwIDgyLjc2IDM2IDgyLjc2IDgwLjQ3IDAgNDQuMTYtMzYuNjQgODAuOC04Mi43NiA4MC44LTQ1LjggMC04Mi40My0zNi42OC04Mi40My04MC44em0xMjUuNjEgMGMwLTIyLjI0LTE5LjMtNDEuODctNDMuMTgtNDEuODctMjMuNTUgMC00Mi44NSAxOS42My00Mi44NSA0MS44NyAwIDIyLjU3IDE5LjMgNDIuMiA0Mi44NSA0Mi4yIDIzLjkyIDAgNDMuMTgtMTkuNjMgNDMuMTgtNDIuMnptNzA1LjYzIDEuMzFjMC00OC43NCAzOS41OC04MS43OCA3NS41Ny04MS43OCAyNC41MyAwIDM4LjYgNy41MiA0OC4wOCAyMS45MmwzLjc3LTE5aDM2Ljc5djE1NS40aC0zNi43OWwtNC43NS0xNmMtMTAuNzkgMTEuNzgtMjQuMjEgMTktNDcuMSAxOS0zNS4zMy0uMDUtNzUuNTctMzEuMTMtNzUuNTctNzkuNTR6bTEyNS42MS0uMzNjLS4wOS0yMy41MjctMTkuNDctNDIuODM1LTQzLTQyLjgzNS0yMy41OSAwLTQzIDE5LjQxMS00MyA0M3YuMTY1YzAgMjEuNTkgMTkuMyA0MC44OSA0Mi44NiA0MC44OSAyMy44NSAwIDQzLjE0LTE5LjMgNDMuMTQtNDEuMjJ6TTk0NS43OCAyMlY0aC00MC4yM3YxNTUuMzloNDAuMjNWNzUuNjZjMC0yNS4xOSAxMi40NC0zOC4yNyAzNC0zOC4yNyAxLjQzIDAgMi43OS4xIDQuMTIuMjNMOTkxLjM2LjExYy0yMC45Ny4xMS0zNi4xNyA3LjMtNDUuNTggMjEuODl6bS00MDQuMjcuMDF2LTE4bC00MC4yMy4wOS4zNCAxNTUuMzcgNDAuMjMtLjA5LS4yMi04My43MmMtLjA2LTI1LjE4IDEyLjM1LTM4LjI5IDMzLjkzLTM4LjM0IDEuMzc2LjAwNCAyLjc1Mi4wODEgNC4xMi4yM0w1ODcuMSAwYy0yMSAuMTctMzYuMjIgNy4zOS00NS41OSAyMi4wMXpNMzM4Ljg4IDk5LjJWNC4wMWg0MC4yMlY5NC4zYzAgMTkuOTUgMTEuMTIgMzEuNzMgMzAuNDIgMzEuNzMgMjEuNTkgMCAzNC0xMy4wOSAzNC0zOC4yOFY0LjAxaDQwLjI0djE1NS4zOGgtNDAuMjF2LTE4Yy05LjQ4IDE0LjcyLTI0Ljg2IDIxLjkyLTQ2LjEyIDIxLjkyLTM1Ljk4LjAxLTU4LjU1LTI2LjE2LTU4LjU1LTY0LjExem0zOTEuNzQtMTcuNDhjLjA5LTQzLjUxIDMxLjIzLTgwLjc0IDgwLjYyLTgwLjY1IDQ1LjguMDkgNzguMTEgMzYuNzggNzggODAgLjAxIDQuMjczLS4zMyA4LjU0LTEgMTIuNzZsLTExOC40MS0uMjJjNC41NCAxOC42NSAxOS44OSAzMi4wOSA0My4xMiAzMi4xNCAxNC4wNiAwIDI5LjEyLTUuMTggMzguMy0xNi45NGwyNy40NCAyMmMtMTQuMTEgMTkuOTMtMzkgMzEuNjYtNjUuNDggMzEuNjEtNDYuNzUtLjE2LTgyLjY3LTM1LjIzLTgyLjU5LTgwLjd6bTExOC4xMi0xNi4xNGMtMi4yNi0xNS43LTE4LjU5LTI3Ljg0LTM3Ljg5LTI3Ljg3LTE4LjY1IDAtMzMuNzEgMTEuMDYtMzkuNjMgMjcuNzNsNzcuNTIuMTR6bS0yNjEuNCA1OS45NGwzNS43Ni0xOC43MmM1LjkxIDEyLjgxIDE3LjczIDIwLjM2IDM0LjQ4IDIwLjM2IDE1LjQzIDAgMjEuMzQtNC45MiAyMS4zNC0xMS44MiAwLTI1LTg0LjcxLTkuODUtODQuNzEtNjcgMC0zMS41MiAyNy41OC00OC4yNiA2MS43Mi00OC4yNiAyNS45NCAwIDQ4LjkyIDExLjQ5IDYxLjQgMzIuODNsLTM1LjQ0IDE4Ljc1Yy01LjI1LTEwLjUxLTE1LjEtMTYuNDItMjcuNTgtMTYuNDItMTIuMTQgMC0xOC4wNiA0LjI3LTE4LjA2IDExLjQ5IDAgMjQuMyA4NC43MSA4Ljg3IDg0LjcxIDY3IDAgMzAuMjEtMjQuNjIgNDguNTktNjQuMzUgNDguNTktMzMuODItLjAzLTU3LjQ2LTExLjE5LTY5LjI3LTM2Ljh6TTAgODEuNTRDMCAzNi43MyAzNi42My43NCA4Mi40My43NGMyNy45NDctLjE5NiA1NC4xODIgMTMuNzM3IDY5LjY3IDM3bC0zNC4zNCAxOS45MmE0Mi45NzIgNDIuOTcyIDAgMDAtMzUuMzMtMTguMzJjLTIzLjU1IDAtNDIuODUgMTkuNjMtNDIuODUgNDIuMiAwIDIyLjU3IDE5LjMgNDIuMiA0Mi44NSA0Mi4yYTQyLjUwMiA0Mi41MDIgMCAwMDM2LjMxLTIwbDM0IDIwLjI4Yy0xNS4zMDcgMjMuOTU1LTQxLjkwMiAzOC40MzEtNzAuMzMgMzguMjhDMzYuNjMgMTYyLjM0IDAgMTI1LjY2IDAgODEuNTR6IiBmaWxsPSIjMDA1NkQyIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48L3N2Zz4="
+                        alt="Coursera Logo" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo"></div>
+                            <div>
+                                <div class="cert-title">Python Certification</div>
+                                <div class="cert-org">Coursera</div>
+                            </div>
+                        </div>
+                        <a href="https://coursera.org/share/4e367d6155bf4cf49ed04ea574fc883e" target="_blank"
+                            rel="noopener noreferrer">
+                            <button class="cert-button">View Certificate Details</button>
+                        </a>
+                    </div>
+                </div>
+
+                
+
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="data:image/png;base64,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"
+                        alt="HP Life Logo" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo"></div>
+                            <div>
+                                <div class="cert-title">Cyber Security Certification</div>
+                                <div class="cert-org">HP Life</div>
+                            </div>
+                        </div>
+                        <a href="https://www.life-global.org/certificate/227fb6e1-aa5f-43aa-89aa-5fa73a234187"
+                            target="_blank" rel="noopener noreferrer">
+                            <button class="cert-button">View Certificate Details</button>
+                        </a>
+                    </div>
+                </div>
+
+                
+
+                
+
+                
+
+                
+
+                
+                <!-- 7. IBM Machine Learning Specialist -->
+                
+
+                
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Hackathons & Internships Section -->
+
+    <section id="hackathons">
+      <div class="container">
+            <h2 class="section-title text-gradient scroll-reveal">Hackathons & Internships</h2>
+            <div class="cert-grid">
+                <!-- Google Gen AI Hackathon -->
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Google_Cloud_logo.svg/2560px-Google_Cloud_logo.svg.png"
+                        alt="Google Cloud" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            
+                            <div>
+                                <div class="cert-title">Gen AI Exchange Hackathon</div>
+                                <div class="cert-org">Google (Ranked Top Developer)</div>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--muted-foreground); margin-bottom: 1rem;">
+                            Won recognition for developing highly scalable RAG-based solutions using Vertex AI and
+                            LangChain.
+                        </p>
+                        <a href="https://drive.google.com/file/d/17FWR4LY7IV5Ww9mTNXi80iyojSkwtosF/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            <button class="cert-button">View Achievement</button>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                <!-- Deloitte Virtual Internship -->
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="data:image/png;base64,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"
+                        alt="Deloitte" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo">
+                                <iconify-icon icon="simple-icons:deloitte"
+                                    style="font-size: 24px; color: #86BC25;"></iconify-icon>
+                            </div>
+                            <div>
+                                <div class="cert-title">Virtual Internship</div>
+                                <div class="cert-org">Deloitte</div>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--muted-foreground); margin-bottom: 1rem;">
+                            Completed comprehensive virtual internship program in technology consulting and data
+                            analytics.
+                        </p>
+                        <a href="https://www.theforage.com/completion-certificates/9PBTqmSxAf6zZTseP/udmxiyHeqYQLkTPvf_9PBTqmSxAf6zZTseP_6902e3ceec39cd63cb54f779_1761798650567_completion_certificate.pdf"
+                            target="_blank" rel="noopener noreferrer">
+                            <button class="cert-button">View Achievement</button>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tata Virtual Internship -->
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="data:image/png;base64,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"
+                        alt="Tata" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo">
+                               
+                            </div>
+                            <div>
+                                <div class="cert-title">Virtual Internship Experience</div>
+                                <div class="cert-org">Tata Group (Data Visualization)</div>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.9rem; color: var(--muted-foreground); margin-bottom: 1rem;">
+                            Collaborated on enterprise data projects, creating high-impact dashboards and predictive
+                            models.
+                        </p>
+                        <a href="https://www.theforage.com/completion-certificates/ifobHAoMjQs9s6bKS/gMTdCXwDdLYoXZ3wG_ifobHAoMjQs9s6bKS_6902e3ceec39cd63cb54f779_1769349410490_completion_certificate.pdf"
+                            target="_blank" rel="noopener noreferrer">
+                            <button class="cert-button">View Achievement</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="cert-card card-elegant scroll-reveal click-effect">
+                    <img src="data:image/png;base64,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"
+                        alt="Skill Dzire Logo" class="cert-image">
+                    <div class="cert-content">
+                        <div class="cert-header">
+                            <div class="cert-logo"></div>
+                            <div>
+                                <div class="cert-title">Web Development Internship</div>
+                                <div class="cert-org">Skill Dzire</div>
+                            </div>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1ao31xukDRTjrHj_NKpeIKaDpRIl8FP3G/view?usp=sharing"
+                            target="_blank" rel="noopener noreferrer">
+                            <button class="cert-button">View Certificate Details</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Projects Section -->
+    <section id="projects" class="bg-subtle">
+        <div class="container">
+            <h2 class="section-title text-gradient scroll-reveal">Featured Projects</h2>
+            <div class="projects-grid">
+                <!-- MindMitra -->
+                <div class="project-card card-elegant scroll-reveal click-effect">
+                    <img src="https://images.pexels.com/photos/2821820/pexels-photo-2821820.jpeg?auto=compress&cs=tinysrgb&w=800"
+                        alt="MindMitra" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">MindMitra</h3>
+                        <p class="project-desc">
+                            A premium Mental Wellness Platform leveraging Generative AI for accessible emotional
+                            support.
+                            Features high-performance Vector Search and real-time mood analysis with RAG technology.
+                        </p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Generative AI</span>
+                            <span class="tech-tag">Pinecone</span>
+                            <span class="tech-tag">RAG</span>
+                            <span class="tech-tag">Python</span>
+                        </div>
+                        <button class="btn-primary click-effect" onclick="window.open('#', '_blank')">
+                            <span style="position: relative; z-index: 10;">View Project</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SmartSupport -->
+                <div class="project-card card-elegant scroll-reveal click-effect">
+                    <img src="https://images.pexels.com/photos/7129713/pexels-photo-7129713.jpeg?auto=compress&cs=tinysrgb&w=800"
+                        alt="SmartSupport" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">SmartSupport</h3>
+                        <p class="project-desc">
+                            Enterprise-grade B2B SaaS Customer Support Platform featuring Autonomous AI Agents.
+                            Optimizes ticket workflows through intelligent automation and sentiment-aware routing.
+                        </p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Advanced APIs</span>
+                            <span class="tech-tag">AI Agents</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">SaaS</span>
+                        </div>
+                        <button class="btn-primary click-effect" onclick="window.open('#', '_blank')">
+                            <span style="position: relative; z-index: 10;">View Project</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- JanSaarthi -->
+                <div class="project-card card-elegant scroll-reveal click-effect">
+                    <img src="https://github.com/bandibhargav12/jansaarthi/blob/main/logo.jpg?raw=true"
+                        alt="JanSaarthi" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">JanSaarthi</h3>
+                        <p class="project-desc">
+                            AI-driven platform revolutionizing access to complex government schemes.
+                            Empowering millions through intuitive discovery and seamless guidance using NLP and ML.
+                        </p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Machine Learning</span>
+                            <span class="tech-tag">Cloud Services</span>
+                            <span class="tech-tag">NLP</span>
+                            <span class="tech-tag">Social Impact</span>
+                        </div>
+                        <button class="btn-primary click-effect" onclick="window.open('#', '_blank')">
+                            <span style="position: relative; z-index: 10;">View Project</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
     <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:bhargavchowdary1221@gmail.com">bhargavchowdary1221@gmail.com</a></p>
-        <p>Phone: 9491669919</p>
+        <div class="container">
+            <h2 class="section-title text-gradient scroll-reveal">Get In Touch</h2>
+            <div class="contact-container">
+                <div class="contact-grid">
+                    <div class="contact-info scroll-reveal">
+                        <h3>Let's Build Something Amazing Together!</h3>
+                        <p>I'm always excited to discuss new opportunities, collaborate on interesting projects, or
+                            simply chat about technology and innovation. Drop me a message and let's connect!</p>
+
+                        <div class="contact-item click-effect">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="white">
+                                    <path
+                                        d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.91L12 10.09l9.455-6.269h.909c.904 0 1.636.732 1.636 1.636z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 600; margin-bottom: 0.25rem; color: var(--foreground);">Email
+                                </h4>
+                                <p style="color: var(--muted-foreground); margin: 0;">bhargavchowdary1221@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item click-effect">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="white">
+                                    <path
+                                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 600; margin-bottom: 0.25rem; color: var(--foreground);">LinkedIn
+                                </h4>
+                                <p style="color: var(--muted-foreground); margin: 0;">
+                                    linkedin.com/in/bhargav-chowdary-830875295</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item click-effect">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="white">
+                                    <path
+                                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 600; margin-bottom: 0.25rem; color: var(--foreground);">GitHub
+                                </h4>
+                                <p style="color: var(--muted-foreground); margin: 0;">github.com/Bandibhargav</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="scroll-reveal">
+                        <form class="contact-form card-elegant" id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" required placeholder="Your full name"
+                                    class="click-effect">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required
+                                    placeholder="your.email@example.com" class="click-effect">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" required rows="5"
+                                    placeholder="Tell me about your project or just say hello!"
+                                    class="click-effect"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-primary submit-btn click-effect">
+                                <span id="submitText">Send Message</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-    
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Bhargav. All rights reserved.</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-grid">
+                    <div>
+                        <div class="footer-brand">
+                            <div class="logo">Bhargav</div>
+                            <div class="footer-divider"></div>
+                            <div class="footer-brand-text">
+                                <h3>Bhargav Chowdary</h3>
+                                <p>Software Developer</p>
+                            </div>
+                        </div>
+                        <p class="footer-desc">
+                            Passionate about creating innovative solutions through code. Always learning,
+                            always growing, and always ready for the next challenge in technology.
+                        </p>
+
+                        <div class="footer-social-links">
+                            <a href="https://github.com/Bandibhargav" class="footer-social-link click-effect"
+                                target="_blank" title="GitHub">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                </svg>
+                            </a>
+                            <a href="https://linkedin.com/in/bhargav-chowdary-830875295"
+                                class="footer-social-link click-effect" target="_blank" title="LinkedIn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                </svg>
+                            </a>
+                            <a href="mailto:bhargavchowdary1221@gmail.com" class="footer-social-link click-effect"
+                                title="Email">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.91L12 10.09l9.455-6.269h.909c.904 0 1.636.732 1.636 1.636z" />
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/_bhargav__chowdary__/"
+                                class="footer-social-link click-effect" title="Instagram">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                </svg>
+                            </a>
+                            <a href="https://x.com/Bhargav13062006" class="footer-social-link click-effect"
+                                title="X (Twitter)">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a onclick="scrollToSection('home')" class="click-effect">Home</a></li>
+                            <li><a onclick="scrollToSection('about')" class="click-effect">About</a></li>
+                            <li><a onclick="scrollToSection('skills')" class="click-effect">Skills</a></li>
+                            <li><a onclick="scrollToSection('experience')" class="click-effect">Experience</a></li>
+                            <li><a onclick="scrollToSection('certifications')" class="click-effect">Certifications</a>
+                            </li>
+                            <li><a onclick="scrollToSection('hackathons')" class="click-effect">Hackathons</a></li>
+                            <li><a onclick="scrollToSection('projects')" class="click-effect">Projects</a></li>
+                            <li><a onclick="scrollToSection('contact')" class="click-effect">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Skills & Interests</h4>
+                        <ul class="footer-links">
+                            <li><span style="color: var(--secondary);">•</span> Full-Stack Development</li>
+                            <li><span style="color: var(--secondary);">•</span> AI & Machine Learning</li>
+                            <li><span style="color: var(--secondary);">•</span> Problem Solving</li>
+                            <li><span style="color: var(--secondary);">•</span> Open Source</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; <span id="currentYear"></span> Bhargav Chowdary. All rights reserved. Built with ❤️ and
+                        passion for code.</p>
+
+                    <button class="back-to-top click-effect" onclick="scrollToTop()">
+                        <span>Back to Top</span>
+                        <div class="back-to-top-icon">↑</div>
+                    </button>
+                </div>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // Smooth Scrolling
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar Background on Scroll
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.submit-btn');
+            const submitText = document.getElementById('submitText');
+            const originalText = submitText.textContent;
+
+            submitText.textContent = 'Sending...';
+            submitBtn.style.background = 'linear-gradient(135deg, #10B981, #059669)';
+
+            setTimeout(() => {
+                submitText.textContent = 'Message Sent! 🎉';
+                setTimeout(() => {
+                    submitText.textContent = originalText;
+                    submitBtn.style.background = '';
+                    this.reset();
+                }, 2000);
+            }, 1500);
+        });
+
+        // Enhanced Click Effects
+        document.addEventListener('click', function (e) {
+            // Ripple effect
+            const ripple = document.createElement('div');
+            ripple.style.position = 'fixed';
+            ripple.style.left = e.clientX + 'px';
+            ripple.style.top = e.clientY + 'px';
+            ripple.style.width = '20px';
+            ripple.style.height = '20px';
+            ripple.style.background = 'rgba(37, 99, 235, 0.4)';
+            ripple.style.borderRadius = '50%';
+            ripple.style.transform = 'scale(0)';
+            ripple.style.animation = 'ripple 0.6s ease-out';
+            ripple.style.pointerEvents = 'none';
+            ripple.style.zIndex = '9999';
+
+            document.body.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function () {
+                const navLinks = document.getElementById('navLinks');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                const navLinks = document.getElementById('navLinks');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add CSS animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
+
 </html>
